@@ -41,42 +41,50 @@ brew install hadolint
 WORKDIR /code
 
 ## Step 2:
-# Copy source code to working directory
+### Copy source code to working directory
+
 COPY app.py /code
 COPY model_data/* /code/model_data/
 
 ## Step 3:
-# Install packages from requirements.txt
-# hadolint ignore=DL3013
+### Install packages from requirements.txt
+### hadolint ignore=DL3013
+
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 
 
 ## Step 4:
-# Expose port 80
+### Expose port 80
+
 EXPOSE 80
 
 
 ## Step 5:
 
 ### Running `app.py` at Launch
+
 CMD ["python",  "/code/app.py"]
 
 1. Standalone:  `python app.py`
 2. Run in Docker:  `./run_docker.sh`
+
 ## Complete the following steps to get Docker running locally
 
-# Step 1:
-# Build image and add a descriptive tag
+### Step 1:
+- Build image and add a descriptive tag
+
 docker build -t houseprice:1.0 .
 
-# Step 2: 
-# List docker images
+### Step 2: 
+- List docker images
+
 docker images
 
-# Step 3: 
-# Run flask app
+### Step 3: 
+
+- Run flask app
 docker run -p  8000:80 houseprice:1.0
 
 3. Run in Kubernetes:  `./run_kubernetes.sh`
@@ -87,8 +95,9 @@ docker run -p  8000:80 houseprice:1.0
 * Create Flask app in Container
 * Run via kubectl
 
-# Step 1:
-# This is your Docker ID/path
+### Step 1:
+
+- This is your Docker ID/path
 dockerpath=anjalicurie/kubetest:1.0
 
 # Step 2
@@ -105,16 +114,16 @@ kubectl port-forward deployments/kubehouse 8000:80
 
 STEP 3: A description of the files used
 
-DOCKERFIle: File used to build docker image for app.py
-Kubernetes_out.txt: Output of running app.py on kubernetes
-requirements.txt: python dependencies to install in the container
-MAKEFILE: set up of the initial environment and run Linter
-make_prediction.sh:API call to prediction service app.py to make predictions
-run_docker.sh:build Docker image, tag and run prediction service app.py in docker
-model_data: it contains the training data for prediction service
-run_kuberenetes.sh:run app.py as container on kubernetes
-app.py: python code for prediction service
-upload_docker.sh: uploading the docker container image to docker hub
-docker-out.txt:output of running the docker container using docker for desktop
+- DOCKERFIle: File used to build docker image for app.py
+- Kubernetes_out.txt: Output of running app.py on kubernetes
+- requirements.txt: python dependencies to install in the container
+- MAKEFILE: set up of the initial environment and run Linter
+- make_prediction.sh:API call to prediction service app.py to make predictions
+- run_docker.sh:build Docker image, tag and run prediction service app.py in docker
+- model_data: it contains the training data for prediction service
+- run_kuberenetes.sh:run app.py as container on kubernetes
+- app.py: python code for prediction service
+- upload_docker.sh: uploading the docker container image to docker hub
+- docker-out.txt:output of running the docker container using docker for desktop
 
 
